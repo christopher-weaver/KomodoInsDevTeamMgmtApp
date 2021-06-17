@@ -459,7 +459,7 @@ namespace KomodoInsDevTeamMgmgApp_UI
                             listOfTeamMembers.Add(developerToAdd);
                             devTeam.TeamMembers = listOfTeamMembers;
 
-                            // If successful, update developer ID to add team prefix.
+                            // If successful, update developer ID to add 3-digit team prefix.
                             updateSuccessful = _devTeamRepo.UpdateDevTeamByID(devTeam.TeamID, devTeam);
                             if (updateSuccessful)
                             {
