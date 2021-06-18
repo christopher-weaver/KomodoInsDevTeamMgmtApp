@@ -14,31 +14,21 @@ namespace KomodoInsDevTeamMgmgApp_UI
         public void Run()
         {
             SeedRepos();
-            Console.WriteLine("Komodo Insurance Developer Team Management Application v1.00\n");
+            Console.WriteLine("Komodo Insurance Developer Team Management Application v1.01\n");
             MainMenu();
         }
 
-        public void MainMenu()
+        private void MainMenu()
         {
             bool continueLoop = true;
 
             while (continueLoop)
             {
                 // Display menu options
-                Console.WriteLine("_____________Main Menu_____________\n" +
-                    "  1. Add a new developer team\n" +
-                    "  2. Add a new developer\n" +
-                    "  3. View/update/delete developer teams\n" +
-                    "  4. View/update/delete developers\n" +
-                    "  5. Add multiple developers to a developer team\n" +
-                    "  6. Display developers without Pluralsight access.\n" +
-                    "  0. Exit\n\n" +
-                    "Please select a menu option:");
+                DisplayMainMenu();
 
                 // Get input
-                ConsoleKey input = Console.ReadKey().Key;
-                string selection = ValidateMenuInput(input, false, false);
-                Console.Clear();
+                string selection = GetValidatedMenuInput(false, false);
 
                 // Display selected menu
                 switch (selection)
@@ -73,7 +63,20 @@ namespace KomodoInsDevTeamMgmgApp_UI
             }
         }
 
-        public void MenuCreateDevTeam()
+        private void DisplayMainMenu()
+        {
+            Console.WriteLine("_____________Main Menu_____________\n" +
+                "  1. Add a new developer team\n" +
+                "  2. Add a new developer\n" +
+                "  3. View/update/delete developer teams\n" +
+                "  4. View/update/delete developers\n" +
+                "  5. Add multiple developers to a developer team\n" +
+                "  6. Display developers without Pluralsight access.\n" +
+                "  0. Exit\n\n" +
+                "Please select a menu option:");
+        }
+
+        private void MenuCreateDevTeam()
         {
             // Get developer team information
             Console.WriteLine("______________Add Team______________\n" +
@@ -102,7 +105,7 @@ namespace KomodoInsDevTeamMgmgApp_UI
             Console.ReadKey();
         }
 
-        public void MenuCreateDeveloper()
+        private void MenuCreateDeveloper()
         {
             // Get required developer information
             Console.WriteLine("___________Add Developer___________");
@@ -120,12 +123,12 @@ namespace KomodoInsDevTeamMgmgApp_UI
         }
 
         // SetDeveloperName method overload for creating a new developer.
-        public Developer SetDeveloperName()
+        private Developer SetDeveloperName()
         {
             return SetDeveloperName(null);
         }
 
-        public Developer SetDeveloperName(Developer developer)
+        private Developer SetDeveloperName(Developer developer)
         {
             Console.WriteLine("Developer's first name:");
             string firstName = Console.ReadLine();
@@ -150,7 +153,7 @@ namespace KomodoInsDevTeamMgmgApp_UI
             return developer;
         }
 
-        public Developer SetDeveloperPluralsightAccess(Developer developer)
+        private Developer SetDeveloperPluralsightAccess(Developer developer)
         {
             ConsoleKey pluralsightResponse = default;
             while (pluralsightResponse != ConsoleKey.Y && pluralsightResponse != ConsoleKey.N)
@@ -163,7 +166,7 @@ namespace KomodoInsDevTeamMgmgApp_UI
             return developer;
         }
 
-        public void DisplayDevTeams(List<DevTeam> listOfDevTeams, int displayIndex)
+        private void DisplayDevTeams(List<DevTeam> listOfDevTeams, int displayIndex)
         {
             int pageCount;
             int menuIndex;
@@ -195,7 +198,7 @@ namespace KomodoInsDevTeamMgmgApp_UI
             }
         }
 
-        public void DisplayDevelopers(List<Developer> listOfDevelopers, int displayIndex)
+        private void DisplayDevelopers(List<Developer> listOfDevelopers, int displayIndex)
         {
             int pageCount;
             int menuIndex;
@@ -227,7 +230,7 @@ namespace KomodoInsDevTeamMgmgApp_UI
             }
         }
 
-        public void MenuDisplayDevTeams()
+        private void MenuDisplayDevTeams()
         {
             List<DevTeam> listOfDevTeams;
 
@@ -243,9 +246,7 @@ namespace KomodoInsDevTeamMgmgApp_UI
                     "or press [N]ext, [P]revious, or [E]xit:");
 
                 // Get input
-                ConsoleKey input = Console.ReadKey().Key;
-                string selection = ValidateMenuInput(input, true, false);
-                Console.Clear();
+                string selection = GetValidatedMenuInput(true, false);
 
                 switch (selection)
                 {
@@ -293,20 +294,12 @@ namespace KomodoInsDevTeamMgmgApp_UI
             }
         }
 
-        public void SubmenuDevTeamDetails(DevTeam devTeam)
+        private void SubmenuDevTeamDetails(DevTeam devTeam)
         {
             bool continueLoop = true;
             int displayIndex = 0;
 
-            List<Developer> listOfTeamMembers;
-            if (devTeam.TeamMembers == null)
-            {
-                listOfTeamMembers = new List<Developer>();
-            }
-            else
-            {
-                listOfTeamMembers = devTeam.TeamMembers;
-            }
+            List<Developer> listOfTeamMembers = devTeam.TeamMembers;
 
             while (continueLoop)
             {
@@ -319,11 +312,9 @@ namespace KomodoInsDevTeamMgmgApp_UI
                 Console.WriteLine("Select a developer [1-0] to remove from the team, [D]elete this team, [A]dd a team member not on the list to the team,\n" +
                     "or press [N]ext, [P]revious, or [E]xit to navigate through existing team members:");
 
-                ConsoleKey submenuInput = Console.ReadKey().Key;
-                string submenuSelection = ValidateMenuInput(submenuInput, true, true);
-                Console.Clear();
+                string selection = GetValidatedMenuInput(true, true);
 
-                switch (submenuSelection)
+                switch (selection)
                 {
                     case "1":
                     case "2":
@@ -336,7 +327,7 @@ namespace KomodoInsDevTeamMgmgApp_UI
                     case "9":
                     case "0":
                         // displayIndex uses zero-based indexing and menu uses one-based indexing.
-                        int devIndex = displayIndex * 10 + (submenuSelection == "0" ? 9 : Int32.Parse(submenuSelection) - 1);
+                        int devIndex = displayIndex * 10 + (selection == "0" ? 9 : Int32.Parse(selection) - 1);
                         if (devIndex <= listOfTeamMembers.Count - 1)
                         {
                             Developer developerToRemove = listOfTeamMembers[devIndex];
@@ -393,7 +384,7 @@ namespace KomodoInsDevTeamMgmgApp_UI
             }
         }
 
-        public void SubmenuDevTeamRemoveDev(Developer developerToRemove, DevTeam devTeam, List<Developer> listOfTeamMembers)
+        private void SubmenuDevTeamRemoveDev(Developer developerToRemove, DevTeam devTeam, List<Developer> listOfTeamMembers)
         {
             bool updateSuccessful = false;
 
@@ -414,7 +405,7 @@ namespace KomodoInsDevTeamMgmgApp_UI
             Console.ReadKey();
         }
 
-        public void SubmenuDevTeamAddDev(DevTeam devTeam, List<Developer>listOfTeamMembers)
+        private void SubmenuDevTeamAddDev(DevTeam devTeam, List<Developer>listOfTeamMembers)
         {
             bool continueLoop = true;
             bool updateSuccessful = false;
@@ -434,9 +425,7 @@ namespace KomodoInsDevTeamMgmgApp_UI
                     "or press [N]ext, [P]revious, or [E]xit:");
 
                 // Get input
-                ConsoleKey input = Console.ReadKey().Key;
-                string selection = ValidateMenuInput(input, true, false);
-                Console.Clear();
+                string selection = GetValidatedMenuInput(true, false);
 
                 switch (selection)
                 {
@@ -498,7 +487,7 @@ namespace KomodoInsDevTeamMgmgApp_UI
             }
         }
 
-        public void MenuDisplayDevelopers()
+        private void MenuDisplayDevelopers()
         {
             ConsoleKey filterResponse = default;
             List<Developer> listOfDevelopers;
@@ -534,9 +523,7 @@ namespace KomodoInsDevTeamMgmgApp_UI
                     "or press [N]ext, [P]revious, or [E]xit:");
 
                 // Get input
-                ConsoleKey input = Console.ReadKey().Key;
-                string selection = ValidateMenuInput(input, true, false);
-                Console.Clear();
+                string selection = GetValidatedMenuInput(true, false);
 
                 switch (selection)
                 {
@@ -584,30 +571,13 @@ namespace KomodoInsDevTeamMgmgApp_UI
             }
         }
 
-        public void SubmenuDeveloperDetails(Developer developer)
+        private void SubmenuDeveloperDetails(Developer developer)
         {
             bool updateSuccessful = false;
             // Developers who are on a team will 7-digit developer ID.  Otherwise, they will have a 4-digit ID.
             bool developerOnTeam = developer.DevID > 10000;
 
-            Console.WriteLine("_Developer Details__________\n" +
-                $"Developer name: {developer.FullName}\n" +
-                $"Developer ID: {String.Format("{0:000-0000}", developer.DevID)}\n" +
-                $"Can access Pluralsight?: {developer.CanAccessPluralsight}\n");
-
-            Console.WriteLine("What would you like to do?\n");
-            // Display different option depending on whether or not the developer is on a team.
-            if (developerOnTeam)
-            {
-                Console.WriteLine("Update developer [N]ame, update developer's [P]luralsight access,\n" +
-                    "remove developer from current [T]eam, or [D]elete developer.");
-            }
-            else
-            {
-                Console.WriteLine("Update developer [N]ame, update developer's [P]luralsight access,\n" +
-                    "    add developer to a [T]eam, or [D]elete developer.");
-            }
-            Console.WriteLine("Any other key will return to the developer list...");
+            DisplayDeveloperDetails(developer, developerOnTeam);
 
             ConsoleKey submenuSelection = Console.ReadKey().Key;
             Console.Clear();
@@ -657,11 +627,9 @@ namespace KomodoInsDevTeamMgmgApp_UI
                                 "or press [N]ext, [P]revious, or [E]xit:");
 
                             // Get input
-                            ConsoleKey teamMenuKey = Console.ReadKey().Key;
-                            string teamMenuSelection = ValidateMenuInput(teamMenuKey, true, false);
-                            Console.Clear();
+                            string selection = GetValidatedMenuInput(true, false);
 
-                            switch (teamMenuSelection)
+                            switch (selection)
                             {
                                 case "1":
                                 case "2":
@@ -675,19 +643,11 @@ namespace KomodoInsDevTeamMgmgApp_UI
                                 case "0":
                                     // Display developer team member menu.
                                     // displayIndex uses zero-based indexing and menu uses one-based indexing.
-                                    int teamIndex = displayIndex * 10 + (teamMenuSelection == "0" ? 9 : Int32.Parse(teamMenuSelection) - 1);
+                                    int teamIndex = displayIndex * 10 + (selection == "0" ? 9 : Int32.Parse(selection) - 1);
                                     if (teamIndex <= listOfDevTeams.Count - 1)
                                     {
                                         // Add selected developer to team members property of selected DevTeam object
-                                        List<Developer> teamMembers;
-                                        if (listOfDevTeams[teamIndex].TeamMembers == null)
-                                        {
-                                            teamMembers = new List<Developer>();
-                                        }
-                                        else
-                                        {
-                                            teamMembers = listOfDevTeams[teamIndex].TeamMembers;
-                                        }
+                                        List<Developer> teamMembers = listOfDevTeams[teamIndex].TeamMembers;
                                         teamMembers.Add(developer);
                                         listOfDevTeams[teamIndex].TeamMembers = teamMembers;
 
@@ -768,7 +728,19 @@ namespace KomodoInsDevTeamMgmgApp_UI
             Console.ReadKey();
         }
 
-        public void MenuAddMultipleDevsToDevTeam()
+        private void DisplayDeveloperDetails(Developer developer, bool developerOnTeam)
+        {
+            Console.WriteLine("_Developer Details__________\n" +
+                $"Developer name: {developer.FullName}\n" +
+                $"Developer ID: {String.Format("{0:000-0000}", developer.DevID)}\n" +
+                $"Can access Pluralsight?: {developer.CanAccessPluralsight}\n\n" +
+                "What would you like to do?\n" +
+                "Update developer [N]ame, update developer's [P]luralsight access,\n\n" +
+                (developerOnTeam ? "remove developer from current" : "add developer to a") + " [T]eam, or [D]elete developer.\n" +
+                "Any other key will return to the developer list...");
+        }
+
+        private void MenuAddMultipleDevsToDevTeam()
         {
             List<DevTeam> listOfDevTeams;
 
@@ -784,9 +756,7 @@ namespace KomodoInsDevTeamMgmgApp_UI
                     "or press [N]ext, [P]revious, or [E]xit:");
 
                 // Get input
-                ConsoleKey input = Console.ReadKey().Key;
-                string selection = ValidateMenuInput(input, true, false);
-                Console.Clear();
+                string selection = GetValidatedMenuInput(true, false);
 
                 switch (selection)
                 {
@@ -835,19 +805,10 @@ namespace KomodoInsDevTeamMgmgApp_UI
 
         }
 
-        public void SubmenuAddMultipleDevsToDevTeam(DevTeam devTeam)
+        private void SubmenuAddMultipleDevsToDevTeam(DevTeam devTeam)
         {
             List<Developer> listOfDevelopers;
-
-            List<Developer> listOfTeamMembers;
-            if (devTeam.TeamMembers == null)
-            {
-                listOfTeamMembers = new List<Developer>();
-            }
-            else
-            {
-                listOfTeamMembers = devTeam.TeamMembers;
-            }
+            List<Developer> listOfTeamMembers = devTeam.TeamMembers;
 
             bool continueLoop = true;
             int displayIndex = 0;
@@ -940,7 +901,7 @@ namespace KomodoInsDevTeamMgmgApp_UI
             }
         }
 
-        public void ReportNoPluralsightAccess()
+        private void ReportNoPluralsightAccess()
         {
             List<Developer> developersWithoutPluraslight = _developerRepo.GetListOfDevelopersWithoutPluralsight();
 
@@ -960,63 +921,84 @@ namespace KomodoInsDevTeamMgmgApp_UI
             }
         }
 
-        public string ValidateMenuInput(ConsoleKey input, bool nextPrevExit, bool addDelete)
+        private string GetValidatedMenuInput(bool nextPrevExit, bool addDelete)
         {
+            ConsoleKey input = Console.ReadKey().Key;
+            string returnValue;
+
             switch (input)
             {
                 case ConsoleKey.D1:
                 case ConsoleKey.NumPad1:
-                    return "1";
+                    returnValue = "1";
+                    break;
                 case ConsoleKey.D2:
                 case ConsoleKey.NumPad2:
-                    return "2";
+                    returnValue = "2";
+                    break;
                 case ConsoleKey.D3:
                 case ConsoleKey.NumPad3:
-                    return "3";
+                    returnValue = "3";
+                    break;
                 case ConsoleKey.D4:
                 case ConsoleKey.NumPad4:
-                    return "4";
+                    returnValue = "4";
+                    break;
                 case ConsoleKey.D5:
                 case ConsoleKey.NumPad5:
-                    return "5";
+                    returnValue = "5";
+                    break;
                 case ConsoleKey.D6:
                 case ConsoleKey.NumPad6:
-                    return "6";
+                    returnValue = "6";
+                    break;
                 case ConsoleKey.D7:
                 case ConsoleKey.NumPad7:
-                    return "7";
+                    returnValue = "7";
+                    break;
                 case ConsoleKey.D8:
                 case ConsoleKey.NumPad8:
-                    return "8";
+                    returnValue = "8";
+                    break;
                 case ConsoleKey.D9:
                 case ConsoleKey.NumPad9:
-                    return "9";
+                    returnValue = "9";
+                    break;
                 case ConsoleKey.D0:
                 case ConsoleKey.NumPad0:
-                    return "0";
+                    returnValue = "0";
+                    break;
                 case ConsoleKey.N:
                 case ConsoleKey.RightArrow:
                 case ConsoleKey.PageDown:
                 case ConsoleKey.Enter:
-                    return nextPrevExit? "n" : "";
+                    returnValue = nextPrevExit ? "n" : "";
+                    break;
                 case ConsoleKey.P:
                 case ConsoleKey.LeftArrow:
                 case ConsoleKey.PageUp:
-                    return nextPrevExit ? "p" : "";
+                    returnValue = nextPrevExit ? "p" : "";
+                    break;
                 case ConsoleKey.X:
                 case ConsoleKey.E:
                 case ConsoleKey.Escape:
-                    return nextPrevExit ? "e" : "";
+                    returnValue = nextPrevExit ? "e" : "";
+                    break;
                 case ConsoleKey.A:
-                    return addDelete ? "a" : "";
+                    returnValue = addDelete ? "a" : "";
+                    break;
                 case ConsoleKey.D:
-                    return addDelete ? "d" : "";
+                    returnValue = addDelete ? "d" : "";
+                    break;
                 default:
-                    return "";
+                    returnValue = "";
+                    break;
             }
+            Console.Clear();
+            return returnValue;
         }
 
-        public void SeedRepos()
+        private void SeedRepos()
         {
             Developer dev1 = new Developer("Gertrudis", "Waterman", false);
             Developer dev2 = new Developer("Jun-Ho", "Lamarre", false);

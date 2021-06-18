@@ -8,7 +8,7 @@ namespace KomodoInsDevTeamMgmtApp.Classes
     {
         public int TeamID { get; }
         public string TeamName { get; set; }
-        public List<Developer> TeamMembers { get; set; }
+        public List<Developer> TeamMembers { get; set; } = new List<Developer>();
 
         public DevTeam()
         {

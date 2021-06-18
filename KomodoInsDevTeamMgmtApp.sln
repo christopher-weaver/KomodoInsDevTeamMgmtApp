@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31229.75
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KomodoInsDevTeamMgmtApp_Classes", "KomodoInsDevTeamMgmt_Classes\KomodoInsDevTeamMgmtApp_Classes.csproj", "{CDFB8587-110C-4B0A-BF11-880626BF4BEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KomodoInsDevTeamMgmtApp_Classes", "KomodoInsDevTeamMgmt_Classes\KomodoInsDevTeamMgmtApp_Classes.csproj", "{CDFB8587-110C-4B0A-BF11-880626BF4BEA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KomodoInsDevTeamMgmtApp_Repos", "KomodoInsDevTeamMgmtApp_Repos\KomodoInsDevTeamMgmtApp_Repos.csproj", "{D3C1D962-A505-47E7-B671-396292C7061A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KomodoInsDevTeamMgmtApp_Repos", "KomodoInsDevTeamMgmtApp_Repos\KomodoInsDevTeamMgmtApp_Repos.csproj", "{D3C1D962-A505-47E7-B671-396292C7061A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KomodoInsDevTeamMgmgApp_UI", "KomodoInsDevTeamMgmgApp_UI\KomodoInsDevTeamMgmgApp_UI.csproj", "{43621451-3105-4C11-A494-86998C8DF384}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KomodoInsDevTeamMgmgApp_UI", "KomodoInsDevTeamMgmgApp_UI\KomodoInsDevTeamMgmgApp_UI.csproj", "{43621451-3105-4C11-A494-86998C8DF384}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KomodoInsDevTeamMgmtApp_UnitTests", "KomodoInsDevTeamMgmtApp_UnitTests\KomodoInsDevTeamMgmtApp_UnitTests.csproj", "{05618692-E51D-498E-AA71-6A76F4F4996B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{43621451-3105-4C11-A494-86998C8DF384}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43621451-3105-4C11-A494-86998C8DF384}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43621451-3105-4C11-A494-86998C8DF384}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05618692-E51D-498E-AA71-6A76F4F4996B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05618692-E51D-498E-AA71-6A76F4F4996B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05618692-E51D-498E-AA71-6A76F4F4996B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05618692-E51D-498E-AA71-6A76F4F4996B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

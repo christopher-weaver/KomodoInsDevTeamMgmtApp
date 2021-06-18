@@ -53,7 +53,8 @@ namespace KomodoInsDevTeamMgmtApp.Repos
         }
 
         // Update
-        public bool UpdateDeveloperByName(string developerName, Developer newDeveloper)
+        // This one is currently unused.
+        private bool UpdateDeveloperByName(string developerName, Developer newDeveloper)
         {
             Developer oldDeveloper = GetDeveloperByFullName(developerName);
 
@@ -84,6 +85,7 @@ namespace KomodoInsDevTeamMgmtApp.Repos
         }
 
         // Delete
+        // This one is currently unused.
         public bool DeleteDeveloperByName(string developerName)
         {
             Developer developer = GetDeveloperByFullName(developerName);
@@ -113,7 +115,7 @@ namespace KomodoInsDevTeamMgmtApp.Repos
 
 
         // Helper functions for update and delete
-        public Developer GetDeveloperByFullName(string developerName)
+        private Developer GetDeveloperByFullName(string developerName)
         {
             foreach (Developer developer in _listOfDevelopers)
             {
